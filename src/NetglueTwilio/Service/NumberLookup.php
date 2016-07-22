@@ -7,9 +7,15 @@ use Zend\Cache\Storage\StorageInterface as Cache;
 use NetglueTwilio\Filter\E164;
 use Webmozart\Assert\Assert;
 use Twilio\Exceptions\TwilioException;
+use League\ISO3166\KeyValidators;
 
 class NumberLookup
 {
+
+    /**
+     * Throw consistent exceptions for invalid country codes
+     */
+    use KeyValidators;
 
     /**
      * @var TwilioClient
@@ -134,6 +140,9 @@ class NumberLookup
     {
         Assert::scalar($number, 'Phone numbers must be scalar values in order to be normalised. Received %s');
         Assert::nullOrString($country, 'Country code should be a string, received %s');
+        if (null !== $country) {
+            $this->guardAgainstInvalidAlpha2($country);
+        }
         /**
          * Strip spaces to perform a small amount of normalisation regardless
          * as the number is used for cache key generation so spaces can be ignored
