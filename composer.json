@@ -18,7 +18,7 @@
         "zendframework/zend-cache": "^2.7",
         "twilio/sdk": "5.0.0-RC8",
         "giggsey/libphonenumber-for-php": "^7.4",
-        "league/iso3166": "^1.0",
+        "league/iso3166": "dev-master",
         "zendframework/zend-filter": "^2.7",
         "webmozart/assert": "^1.0"
     },

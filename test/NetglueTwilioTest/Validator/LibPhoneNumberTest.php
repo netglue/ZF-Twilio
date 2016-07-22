@@ -75,4 +75,23 @@ class LibPhoneNumberTest extends \PHPUnit_Framework_TestCase
         $v = new LibPhoneNumber;
         $this->assertTrue($v->isValid($number));
     }
+
+    public function getValidNumbers()
+    {
+        return [
+            ['GB', '01234 567 890', '+441234567890'],
+            ['CH', '021 653 81 37', '+41216538137'],
+            [null, '+44 01234 567 890', '+441234567890'],
+        ];
+    }
+
+    /**
+     * @dataProvider getValidNumbers
+     */
+    public function testValidNumbers($code, $number, $formatted)
+    {
+        $v = new LibPhoneNumber(['country' => $code]);
+        $this->assertTrue($v->isValid($number));
+    }
+
 }
